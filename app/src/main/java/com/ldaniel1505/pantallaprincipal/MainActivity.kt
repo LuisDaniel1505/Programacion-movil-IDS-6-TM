@@ -158,10 +158,119 @@ fun PantallaLogin(modifier: Modifier = Modifier
     }
 }
 
+@Composable
+fun PantallaRegistro(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(24.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo_registro),
+            contentDescription = "signUp_logo",
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(260.dp)
+                .padding(top = 16.dp)
+        )
+        Text(
+            text = "Login",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, bottom = 32.dp),
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = "Name",
+            color = Color.Gray,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 20.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color.LightGray,
+                    shape = RoundedCornerShape(20)
+                )
+        )
+        Text(
+            text = "Email",
+            color = Color.Gray,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color.LightGray,
+                    shape = RoundedCornerShape(20)
+                )
+        )
+        Text(
+            text = "Password",
+            color = Color.Gray,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color.LightGray,
+                    shape = RoundedCornerShape(20)
+                )
+        )
+        Text(
+            text = "Forgot password?",
+            color = Color.Gray,
+            fontSize = 10.sp,
+            modifier = Modifier.padding(bottom = 5.dp, top = 10.dp, start = 20.dp)
+        )
+        Box(
+            modifier = Modifier
+                .padding(top = 20.dp, start = 180.dp)
+                .height(50.dp)
+                .fillMaxWidth()
+                .background(
+                    color = Color(0xFF3F3D8B),
+                    shape = RoundedCornerShape(50)
+                )
+                .padding(vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ){
+            Text(
+                text = "Login",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PantallaLoginPreview() {
     PantallaPrincipalTheme {
         PantallaLogin()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MiPantallaRegistroPreview() {
+    PantallaPrincipalTheme {
+        PantallaRegistro()
     }
 }
