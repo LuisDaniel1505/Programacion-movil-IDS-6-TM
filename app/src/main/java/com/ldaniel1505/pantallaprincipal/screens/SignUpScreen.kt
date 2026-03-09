@@ -2,8 +2,10 @@ package com.ldaniel1505.pantallaprincipal.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,12 +31,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.ldaniel1505.pantallaprincipal.R
 import com.ldaniel1505.pantallaprincipal.ui.theme.PantallaPrincipalTheme
 
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier) {
+fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -45,6 +49,20 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             .background(Color.White)
             .padding( top = 100.dp)
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+                .clickable { navController.popBackStack() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = " Regresar",
+                color = Color.Gray,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
         Text(
             text = "Sign Up",
             fontSize = 32.sp,
@@ -184,6 +202,6 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 @Composable
 fun SignUpScreenPreview() {
     PantallaPrincipalTheme {
-        SignUpScreen()
+        SignUpScreen(navController = rememberNavController())
     }
 }

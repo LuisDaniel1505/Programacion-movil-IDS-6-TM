@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -27,12 +28,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ldaniel1505.pantallaprincipal.R
 import com.ldaniel1505.pantallaprincipal.ui.theme.PantallaPrincipalTheme
+import androidx.navigation.NavController
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier
-    .background(
-        color = Color(0xFF3F3D8B))
-    .padding(10.dp)) {
+fun MainScreen(navController: NavController, modifier: Modifier = Modifier.
+    background(color = Color(0xFF3F3D8B)).
+    padding(10.dp)) {
     Column(
         modifier = modifier.fillMaxSize().
         background(
@@ -61,43 +66,28 @@ fun MainScreen(modifier: Modifier = Modifier
             modifier = Modifier.padding(top = 5.dp, start = 28.dp, end = 28.dp)
         )
 
-        Box(
+        Button(
+            onClick = { navController.navigate("login") },
             modifier = Modifier
                 .padding(top = 40.dp, start = 60.dp, end = 60.dp)
                 .fillMaxWidth()
-                .background(
-                    color = Color(0xFF3F3D8B),
-                    shape = RoundedCornerShape(50)
-                )
-                .padding(vertical = 16.dp),
-            contentAlignment = Alignment.Center
-        ){
-            Text(
-                text = "Login",
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
+                .height(55.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F3D8B))
+        ) {
+            Text(text = "Login", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
         }
-        Box(
+
+        OutlinedButton(
+            onClick = { navController.navigate("signup") },
             modifier = Modifier
                 .padding(top = 20.dp, start = 60.dp, end = 60.dp)
                 .fillMaxWidth()
-                .border(
-                    width = 2.dp,
-                    color = Color(0xFF3F3D8B),
-                    shape = RoundedCornerShape(50)
-                )
-                .padding(vertical = 16.dp),
-            contentAlignment = Alignment.Center
-        ){
-            Text(
-                text = "Sign Up",
-                color = Color(0xFF3F3D8B),
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
+                .height(55.dp),
+            border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF3F3D8B))
+        ) {
+            Text(text = "Sign Up", color = Color(0xFF3F3D8B), fontWeight = FontWeight.Bold, fontSize = 16.sp)
         }
+
         Text(
             text = "Sign up using",
             color = Color.Gray,
@@ -140,6 +130,6 @@ fun MainScreen(modifier: Modifier = Modifier
 @Composable
 fun MainScreenPreview() {
     PantallaPrincipalTheme {
-        MainScreen()
+        MainScreen(navController = rememberNavController())
     }
 }
