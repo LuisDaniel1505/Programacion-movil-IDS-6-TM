@@ -1,5 +1,6 @@
 package com.ldaniel1505.pantallaprincipal.screens
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -26,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,8 +44,21 @@ import com.ldaniel1505.pantallaprincipal.ui.theme.PantallaPrincipalTheme
 fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    //Validaciones
+    val isNameValid = name.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$".toRegex()) || name.isEmpty()
+    val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches() || email.isEmpty()
+    val isPhoneValid = phoneNumber.matches("^\\d{10}$".toRegex()) || phoneNumber.isEmpty()
+    val passwordsMatch = password == confirmPassword || confirmPassword.isEmpty()
 
+    //Validacion general
+    val isFormValid = name.isNotEmpty() && isNameValid &&
+            email.isNotEmpty() && isEmailValid &&
+            phoneNumber.isNotEmpty() && isPhoneValid &&
+            password.isNotEmpty() &&
+            confirmPassword.isNotEmpty() && passwordsMatch
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -81,6 +97,7 @@ fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
+            isError = !isNameValid,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -117,8 +134,8 @@ fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(top = 10.dp, start = 20.dp)
         )
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
+            value = phoneNumber,
+            onValueChange = { phoneNumber = it },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -127,7 +144,8 @@ fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
                 unfocusedBorderColor = Color.LightGray,
                 focusedBorderColor = Color(0xFF3F3D8B)
             ),
-            singleLine = true
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(
             text = "Password",
@@ -156,8 +174,9 @@ fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(top = 10.dp, start = 20.dp)
         )
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            isError = !passwordsMatch,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -181,9 +200,11 @@ fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
                 .height(50.dp)
                 .fillMaxWidth()
                 .background(
-                    color = Color(0xFF3F3D8B),
+                    color = if (isFormValid) Color(0xFF3F3D8B) else Color.LightGray,
                     shape = RoundedCornerShape(50)
                 )
+                .clickable(enabled = isFormValid) {
+                }
                 .padding(vertical = 16.dp),
             contentAlignment = Alignment.Center
         ) {

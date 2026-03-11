@@ -1,5 +1,6 @@
 package com.ldaniel1505.pantallaprincipal.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -83,7 +84,7 @@ fun MainScreen(navController: NavController, modifier: Modifier = Modifier.
                 .padding(top = 20.dp, start = 60.dp, end = 60.dp)
                 .fillMaxWidth()
                 .height(55.dp),
-            border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF3F3D8B))
+            border = BorderStroke(2.dp, Color(0xFF3F3D8B))
         ) {
             Text(text = "Sign Up", color = Color(0xFF3F3D8B), fontWeight = FontWeight.Bold, fontSize = 16.sp)
         }
